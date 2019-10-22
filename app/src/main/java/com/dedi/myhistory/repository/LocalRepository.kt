@@ -14,7 +14,7 @@ class LocalRepository(private val hisDao: HisDao):LocalCallback{
     }
 
     override fun update(historyModel: HistoryModel) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return hisDao.update(historyModel)
     }
 
     override fun delete(historyModel: HistoryModel) {

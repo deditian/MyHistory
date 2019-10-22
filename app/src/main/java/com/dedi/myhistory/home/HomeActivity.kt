@@ -1,6 +1,7 @@
 package com.dedi.myhistory.home
 
 import android.content.DialogInterface
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.snackbar.Snackbar
@@ -83,6 +84,7 @@ class HomeActivity : AppCompatActivity() {
         viewModel.getAllHistory().observe(this, Observer {data ->
             if (!data.isNullOrEmpty()){
                 txt_empty.visibility = View.GONE
+
             }else{
                 txt_empty.visibility = View.VISIBLE
             }
