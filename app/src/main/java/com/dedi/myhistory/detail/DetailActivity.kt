@@ -37,7 +37,6 @@ class DetailActivity : AppCompatActivity() {
         txt_des.text = list_data.description
 
 
-
     }
 
 
@@ -62,7 +61,6 @@ class DetailActivity : AppCompatActivity() {
             }
 
             R.id.action_edit -> {
-
                 edit_Data()
                 true
             }

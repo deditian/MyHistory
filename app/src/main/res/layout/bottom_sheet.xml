@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/bottom_sheet"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="#fff"
+              android:orientation="vertical"
+              android:padding="2dp"
+              app:behavior_hideable="true"
+              app:behavior_peekHeight="56dp"
+              app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+
+
+
+
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:text="Tulis Kenangan"
+            android:textSize="17dp"
+            android:textColor="#444"
+            android:textStyle="bold" />
+
+
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Title"
+            android:ems="10"
+            android:id="@+id/edt_bs_title"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Location"
+            android:ems="10"
+            android:id="@+id/edt_bs_location"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descrition"
+            android:lines="8"
+            android:inputType="textMultiLine"
+            android:maxLines="10"
+            android:ems="10"
+            android:id="@+id/edt_bs_description"/>
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="#000"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="Tambah"
+            android:id="@+id/btn_bs_add"
+            android:textColor="#fff" />
+
+</LinearLayout>
