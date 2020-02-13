@@ -34,13 +34,29 @@
             android:text="Title"
             android:ems="10"
             android:id="@+id/edt_bs_title"/>
-    <EditText
+    <LinearLayout
+            android:orientation="horizontal"
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Location"
-            android:ems="10"
-            android:id="@+id/edt_bs_location"/>
+            android:layout_height="wrap_content">
+
+        <EditText
+                android:layout_weight="1"
+                android:id="@+id/edt_bs_location"
+                android:layout_width="366dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Location" />
+
+        <ImageButton
+                android:id="@+id/img_location"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"
+                android:src="@drawable/ic_add_location_black_24dp" />
+
+    </LinearLayout>/
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

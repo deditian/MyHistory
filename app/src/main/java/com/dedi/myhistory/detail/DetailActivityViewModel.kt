@@ -1,7 +1,7 @@
 package com.dedi.myhistory.detail
 
 import androidx.lifecycle.ViewModel
-import com.dedi.myhistory.data.HistoryModel
+import com.dedi.myhistory.model.HistoryModel
 import com.dedi.myhistory.repository.LocalCallback
 
 class DetailActivityViewModel(val localCallback: LocalCallback) : ViewModel(){

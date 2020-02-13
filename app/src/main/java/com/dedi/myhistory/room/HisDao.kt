@@ -2,7 +2,7 @@ package com.dedi.myapplication.room
 
 import androidx.paging.DataSource
 import androidx.room.*
-import com.dedi.myhistory.data.HistoryModel
+import com.dedi.myhistory.model.HistoryModel
 
 @Dao
 interface HisDao {

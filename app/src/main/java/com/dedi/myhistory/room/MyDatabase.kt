@@ -3,7 +3,7 @@ package com.dedi.myhistory.room
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.dedi.myapplication.room.HisDao
-import com.dedi.myhistory.data.HistoryModel
+import com.dedi.myhistory.model.HistoryModel
 
 
 @Database(entities = [HistoryModel::class], version = 1)

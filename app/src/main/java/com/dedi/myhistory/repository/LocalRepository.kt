@@ -2,7 +2,7 @@ package com.dedi.myhistory.repository
 
 import androidx.paging.DataSource
 import com.dedi.myapplication.room.HisDao
-import com.dedi.myhistory.data.HistoryModel
+import com.dedi.myhistory.model.HistoryModel
 
 class LocalRepository(private val hisDao: HisDao):LocalCallback{
     override fun insert(historyModel: HistoryModel) {

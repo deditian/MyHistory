@@ -3,18 +3,16 @@ package com.dedi.myhistory.detail
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.SystemClock
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import com.dedi.myhistory.R
-import com.dedi.myhistory.data.HistoryModel
+import com.dedi.myhistory.model.HistoryModel
 import com.dedi.myhistory.model.ParceModel
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.input_dialog.view.*
-import kotlinx.android.synthetic.main.item_content.*
 import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,12 +33,7 @@ class DetailActivity : AppCompatActivity() {
         txt_location.text = list_data.location
         txt_date.text = list_data.date
         txt_des.text = list_data.description
-
-
     }
-
-
-
 
         override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -54,7 +47,15 @@ class DetailActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_delete -> {
-                viewmodel.delete(HistoryModel(list_data.title,list_data.date,list_data.location,list_data.description,list_data.id) )
+                viewmodel.delete(
+                    HistoryModel(
+                        list_data.title,
+                        list_data.date,
+                        list_data.location,
+                        list_data.description,
+                        list_data.id
+                    )
+                )
                 Toasty.success(this,"Delete Data",Toasty.LENGTH_LONG).show()
                 finish()
                 true
@@ -82,7 +83,13 @@ class DetailActivity : AppCompatActivity() {
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm")
             val currentDate = sdf.format(Date())
             viewmodel.update(
-                HistoryModel(title,currentDate,location,description,list_data.id)
+                HistoryModel(
+                    title,
+                    currentDate,
+                    location,
+                    description,
+                    list_data.id
+                )
             )
 
             Toasty.success(this,"Success Edit Data",Toasty.LENGTH_LONG).show()
