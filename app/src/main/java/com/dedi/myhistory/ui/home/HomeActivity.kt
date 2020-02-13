@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dedi.myhistory.R
 import com.dedi.myhistory.model.HistoryModel
 import com.dedi.myhistory.ui.map.MapLocation
+import com.dedi.myhistory.util.Utility
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import es.dmoral.toasty.Toasty
 
@@ -82,6 +83,9 @@ class HomeActivity : AppCompatActivity() {
                 val currentDate = SimpleDateFormat("dd/M/yyyy hh:mm").format(Date())
                 val location = edt_bs_location.text.toString()
                 val description = edt_bs_description.text.toString()
+                var latlong = Utility(this).getValueString("label_address").toString()
+                edt_bs_location.text = latlong
+
 
                 edt_bs_location.setOnClickListener {
 

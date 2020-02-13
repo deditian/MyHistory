@@ -8,7 +8,7 @@ import com.dedi.myhistory.data.AddressModel
 
 import okhttp3.CookieJar
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,17 +32,17 @@ class RemoteRepository : RemoteCallback{
     init {
 
 
-        val logInter = HttpLoggingInterceptor()
-        logInter.setLevel(HttpLoggingInterceptor.Level.BODY)
-        val mIntercepter = OkHttpClient.Builder()
-            .cookieJar(CookieJar.NO_COOKIES)
-            .addInterceptor(logInter)
-            .build()
+//        val logInter = HttpLoggingInterceptor()
+//        logInter.setLevel(HttpLoggingInterceptor.Level.BODY)
+//        val mIntercepter = OkHttpClient.Builder()
+//            .cookieJar(CookieJar.NO_COOKIES)
+//            .addInterceptor(logInter)
+//            .build()
 
         val retrofit = Retrofit.Builder()
             .baseUrl(HTTP_API_DOMAIN_HERE)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(mIntercepter)
+//            .client(mIntercepter)
             .build()
 
         apiService = retrofit.create(ApiService::class.java)

@@ -34,20 +34,22 @@
 
         <TextView
                 android:id="@+id/txt_title"
-                android:layout_width="271dp"
-                android:layout_height="29dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:textColor="@color/colorAccent"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                tools:text="Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="8dp"
+                android:contentDescription="Title"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="108dp"
-                android:contentDescription="Title" app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="parent"
-               />
+                app:layout_constraintHorizontal_bias="0.081"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Title" />
 
         <TextView
                 android:id="@+id/txt_tempat"
@@ -64,23 +66,6 @@
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
                 android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/txt_title"/>
-        <androidx.recyclerview.widget.RecyclerView android:layout_width="268dp"
-                                                   android:id="@+id/rv_image"
-
-                                                   android:layout_height="97dp" tools:ignore="InvalidId"
-                                                   app:layout_constraintStart_toStartOf="parent"
-                                                   android:layout_marginStart="8dp" android:layout_marginTop="8dp"
-                                                   app:layout_constraintTop_toTopOf="parent"
-                                                   tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                                                   tools:scrollbars="horizontal"
-                                                   tools:listitem="@layout/item_image"
-                                                   tools:orientation="horizontal"
-                                                   tools:spanCount="1"
-                                                   tools:itemCount="3"
-                                                   android:layout_marginEnd="8dp"
-                                                   app:layout_constraintEnd_toEndOf="parent">
-
-        </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -192,16 +192,6 @@ class MapLocation : AppCompatActivity(),OnMapReadyCallback,PermissionsListener {
                     return
                 }
 
-// Create a Toast which displays the new location's coordinates
-//                Toast.makeText(
-//                    activity, String.format(
-//                        activity.getString(R.string.new_location),
-//                        result.lastLocation!!.latitude.toString(),
-//                        result.lastLocation!!.longitude.toString()
-//                    ),
-//                    Toast.LENGTH_SHORT
-//                ).show()
-
                 Log.i("deditian", "lat : "+result.lastLocation!!.latitude.toString() +"   long :"+ result.lastLocation!!.longitude.toString())
 
 
@@ -245,7 +235,9 @@ class MapLocation : AppCompatActivity(),OnMapReadyCallback,PermissionsListener {
         viewModel.getAddress(latlong.toString(),"retrieveAddresses",1,9,"WujWfaQEkfooEWPw0xy7","hEwHa8j4W1AIkNddDwRHFg").observe(this, Observer {data ->
             if (data != null){
                 Log.i(TAG, "deditian data ${data.Response}")
-                txt_map_location.text = data.Response?.View!![0]?.Result!![0]?.Location?.Address?.Label
+                var labelLocation = data.Response.View[0].Result[0].Location.Address.Label
+                txt_map_location.text = labelLocation
+                Utility(applicationContext).save("label_address",labelLocation)
             }else{
                 Log.i(TAG, "deditian data null")
             }
@@ -279,4 +271,8 @@ class MapLocation : AppCompatActivity(),OnMapReadyCallback,PermissionsListener {
         super.onLowMemory()
         mapView.onLowMemory()
     }
+
+
+
+
 }
