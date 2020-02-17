@@ -24,6 +24,7 @@
         <TextView
                 android:id="@+id/txtdate"
                 android:layout_width="199dp"
+                android:textColor="@color/design_default_color_primary_dark"
                 android:layout_height="23dp"
                 android:gravity="right"
                 android:textSize="15sp"
@@ -42,7 +43,7 @@
                 android:contentDescription="Title"
                 android:ellipsize="end"
                 android:gravity="left"
-                android:textColor="@color/colorAccent"
+
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -56,8 +57,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:gravity="end"
-                android:textColor="@color/colorAccent"
+                android:gravity="start"
+
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="Location"
