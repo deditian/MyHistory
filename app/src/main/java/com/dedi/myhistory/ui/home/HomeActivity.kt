@@ -2,6 +2,9 @@ package com.dedi.myhistory.ui.home
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import es.dmoral.toasty.Toasty
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_map_location.*
 import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.koin.android.ext.android.inject
@@ -24,8 +28,12 @@ import java.util.*
 
 class HomeActivity : AppCompatActivity() {
 
+    var locationManager:LocationManager?=null
+
     private var homeActivityAdapter: HomeActivityAdapter? = null
     val viewModel:HomeActivityViewModel by inject()
+
+    val TAG = "HomeActivity"
 
     private val historyModel : ArrayList<HistoryModel> = ArrayList()
 
@@ -34,10 +42,17 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
-
         observeViewModelRequest()
 
+        // Create persistent LocationManager reference
+        locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?
+
+        try {
+            // Request location updates
+            locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
+        } catch(ex: SecurityException) {
+            Log.d(TAG, "Security Exception, no location available")
+        }
 
 
         homeActivityAdapter = HomeActivityAdapter(this)
@@ -45,11 +60,6 @@ class HomeActivity : AppCompatActivity() {
         rv_history?.layoutManager = LinearLayoutManager(this)
         rv_history?.setHasFixedSize(true)
         rv_history?.adapter = homeActivityAdapter
-
-//        fab.setOnClickListener {
-//            addData()
-//
-//        }
 
         var sheetBehavior = BottomSheetBehavior.from(bottom_sheet)
         sheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
@@ -76,18 +86,18 @@ class HomeActivity : AppCompatActivity() {
         })
 
         bottom_sheet.setOnClickListener {
-            if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
-                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
+            if (sheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+                sheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 
                 val title = edt_bs_title.text.toString()
                 val currentDate = SimpleDateFormat("dd/M/yyyy hh:mm").format(Date())
-                val location = edt_bs_location.text.toString()
+                val location = txt_bs_location.text.toString()
                 val description = edt_bs_description.text.toString()
                 var latlong = Utility(this).getValueString("label_address").toString()
-                edt_bs_location.text = latlong
+                txt_bs_location.text = latlong
 
 
-                edt_bs_location.setOnClickListener {
+                txt_bs_location.setOnClickListener {
 
                 }
                 btn_bs_add.setOnClickListener {
@@ -97,6 +107,8 @@ class HomeActivity : AppCompatActivity() {
                             title,
                             currentDate,
                             location,
+                            "",
+                            "",
                             description
                         )
                     )
@@ -119,30 +131,18 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-//    private fun addData() {
-//        val dialogBuilder = AlertDialog.Builder(this)
-//        val vieww = layoutInflater.inflate(R.layout.input_dialog, null)
-//        dialogBuilder.setCancelable(false)
-//        dialogBuilder.setView(vieww)
-//        dialogBuilder.setTitle("Masukkan data baru")
-//        val title = vieww.edt_titile
-//        dialogBuilder.setPositiveButton("Tambahkan") { _: DialogInterface, _: Int ->
-//            val title = title.text.toString()
-//            val location = vieww.edt_location.text.toString()
-//            val description = vieww.edt_description.text.toString()
-//            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm")
-//            val currentDate = sdf.format(Date())
-//            viewModel.saveHis(
-//                HistoryModel(title,currentDate,location,description)
-//            )
-//            observeViewModelRequest()
-//
-//
-//        }
-//        dialogBuilder.setNegativeButton("Batal") { _: DialogInterface, _: Int -> }
-//
-//        dialogBuilder.show()
-//    }
+    //define the listener
+    private val locationListener: LocationListener = object : LocationListener {
+        override fun onLocationChanged(location: Location) {
+            txt_bs_location.text = ("deditian " + location.longitude + ":" + location.latitude)
+            Log.i(TAG,  "deditian location ${location.longitude} ${location.latitude}")
+
+        }
+        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+        override fun onProviderEnabled(provider: String) {}
+        override fun onProviderDisabled(provider: String) {}
+    }
+
 
     private fun observeViewModelRequest() {
         viewModel.getAllHistory().observe(this, Observer {data ->
@@ -155,6 +155,23 @@ class HomeActivity : AppCompatActivity() {
             homeActivityAdapter?.submitList(data)
             homeActivityAdapter?.notifyDataSetChanged()
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        var latlong = Utility(this).getValueString("lat_long")
+//
+//        viewModel.getAddress(latlong.toString(),"retrieveAddresses",1,9,"WujWfaQEkfooEWPw0xy7","hEwHa8j4W1AIkNddDwRHFg").observe(this, Observer {data ->
+//            if (data != null){
+//                Log.i(TAG, "deditian data ${data.Response}")
+//                var labelLocation = data.Response!!.View[0].Result[0].Location.Address.Label
+//                    txt_bs_location.text = labelLocation
+//                Utility(applicationContext).save("label_address",labelLocation)
+//            }else{
+//                Log.i(TAG, "deditian data null")
+//            }
+//
+//        })
     }
 
 

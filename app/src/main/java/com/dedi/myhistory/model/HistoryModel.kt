@@ -13,6 +13,8 @@ data class HistoryModel(
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "date") val date: String,
     @ColumnInfo(name = "location") val location: String,
+    @ColumnInfo(name = "latitude") val latitude: String,
+    @ColumnInfo(name = "latitude") val longitude: String,
     @ColumnInfo(name = "description") val description: String,
     @PrimaryKey (autoGenerate = true) @ColumnInfo(name = "id") var id: Long = 0
 

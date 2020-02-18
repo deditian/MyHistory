@@ -31,6 +31,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.dedi.myhistory.util.Utility
 import com.mapbox.android.core.location.*
+import com.mapbox.api.geocoding.v5.MapboxGeocoding
 import org.koin.android.ext.android.inject
 import java.lang.ref.WeakReference
 
@@ -40,7 +41,6 @@ class MapLocation : AppCompatActivity(),OnMapReadyCallback,PermissionsListener {
     lateinit var mContext: Context
     lateinit var mMapview : MapView
     lateinit var locationEngine : LocationEngine
-    var latlit = ""
     val viewModel: MapViewModel by inject()
 
     val DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L
@@ -221,21 +221,18 @@ class MapLocation : AppCompatActivity(),OnMapReadyCallback,PermissionsListener {
         }
     }
 
-
-
-
     override fun onStart() {
         super.onStart()
         mapView.onStart()
     }
 
     override fun onResume() {
-        var latlong = Utility(this).getValueString("lat_long")
+        val latlong = Utility(this).getValueString("lat_long")
 
         viewModel.getAddress(latlong.toString(),"retrieveAddresses",1,9,"WujWfaQEkfooEWPw0xy7","hEwHa8j4W1AIkNddDwRHFg").observe(this, Observer {data ->
             if (data != null){
                 Log.i(TAG, "deditian data ${data.Response}")
-                var labelLocation = data.Response.View[0].Result[0].Location.Address.Label
+                val labelLocation = data.Response!!.View[0].Result[0].Location.Address.Label
                 txt_map_location.text = labelLocation
                 Utility(applicationContext).save("label_address",labelLocation)
             }else{

@@ -13,10 +13,6 @@ import android.location.LocationManager
 import android.content.Context.LOCATION_SERVICE
 import androidx.core.content.ContextCompat.getSystemService
 
-
-
-
-
 @Parcelize
 data class ParceModel(
         val id : Long,

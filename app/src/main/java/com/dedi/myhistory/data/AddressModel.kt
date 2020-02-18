@@ -1,7 +1,7 @@
 package com.dedi.myhistory.data
 
 data class AddressModel(
-    val Response: Response
+    val Response: Response?
 )
 
 data class Response(

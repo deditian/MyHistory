@@ -21,7 +21,7 @@ object DependencyModules {
         bean { RemoteRepository() as RemoteCallback }
 
 
-        factory { HomeActivityViewModel(get()) }
+        factory { HomeActivityViewModel(get(), get()) }
         factory { DetailActivityViewModel(get()) }
         factory { MapViewModel(get()) }
 

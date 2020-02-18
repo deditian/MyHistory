@@ -9,7 +9,6 @@
 
     <com.mapbox.mapboxsdk.maps.MapView
             android:id="@+id/mapView"
-
             mapbox:mapbox_cameraZoom="12"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
@@ -19,5 +18,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/txt_map_location"/>
     </com.mapbox.mapboxsdk.maps.MapView>
+
+    <Button
+            android:id="@+id/select_location_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="8dp"
+            android:background="@color/colorPrimary"
+            android:text="Select a location"
+            android:textColor="@android:color/white"
+            mapbox:layout_constraintBottom_toBottomOf="@+id/mapView"
+            tools:layout_editor_absoluteX="8dp"
+            tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
