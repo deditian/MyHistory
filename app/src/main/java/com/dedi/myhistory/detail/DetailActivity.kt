@@ -52,6 +52,8 @@ class DetailActivity : AppCompatActivity() {
                         list_data.title,
                         list_data.date,
                         list_data.location,
+                        "",
+                        "",
                         list_data.description,
                         list_data.id
                     )
@@ -87,6 +89,8 @@ class DetailActivity : AppCompatActivity() {
                     title,
                     currentDate,
                     location,
+                    "",
+                    "",
                     description,
                     list_data.id
                 )

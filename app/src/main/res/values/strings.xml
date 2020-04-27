@@ -2,5 +2,5 @@
     <string name="app_name">MyHistory</string>
     <string name="action_settings">Settings</string>
     <string name="new_location">New Location</string>
-    <string name="access_token">pk.eyJ1IjoiZGVkaXRpYW4iLCJhIjoiY2s0anhxemU0MGpvcjNqbnZ0Zmhoa29udyJ9.W2wQYGoK5O-AmdHg1VlPUA</string>
+    <string name="access_token" translatable="false">pk.eyJ1IjoiZGVkaXRpYW4iLCJhIjoiY2s0anhxemU0MGpvcjNqbnZ0Zmhoa29udyJ9.W2wQYGoK5O-AmdHg1VlPUA</string>
 </resources>
