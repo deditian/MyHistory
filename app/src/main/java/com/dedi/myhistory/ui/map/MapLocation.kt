@@ -26,12 +26,14 @@ import com.mapbox.mapboxsdk.maps.Style
 import kotlinx.android.synthetic.main.activity_map_location.*
 
 import android.location.LocationManager
+import android.os.Build
 import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
+import com.dedi.myhistory.BuildConfig
 import com.dedi.myhistory.util.Utility
 import com.mapbox.android.core.location.*
 import com.mapbox.api.directions.v5.models.DirectionsResponse
@@ -50,6 +52,7 @@ import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute
 import org.koin.android.ext.android.inject
 import retrofit2.Call
 import retrofit2.Response
+import java.lang.ref.WeakReference
 
 
 class MapLocation : AppCompatActivity(),OnMapReadyCallback,PermissionsListener, MapboxMap.OnMapClickListener {
@@ -63,9 +66,9 @@ class MapLocation : AppCompatActivity(),OnMapReadyCallback,PermissionsListener, 
 
     private val viewModel: MapViewModel by inject()
 
-    private val DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L
+    private val DEFAULT_INTERVAL_IN_MILLISECONDS = 300000L
     private val DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 10
-//    var callback : MapLocationCallback = MapLocationCallback(this)
+    var callback : MapLocationCallback = MapLocationCallback(this)
     var permissionsManager: PermissionsManager = PermissionsManager(this)
     private lateinit var mapboxMap: MapboxMap
 
@@ -73,7 +76,7 @@ class MapLocation : AppCompatActivity(),OnMapReadyCallback,PermissionsListener, 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Mapbox.getInstance(this, "pk.eyJ1IjoiZGVkaXRpYW4iLCJhIjoiY2s0anhxemU0MGpvcjNqbnZ0Zmhoa29udyJ9.W2wQYGoK5O-AmdHg1VlPUA")
+        Mapbox.getInstance(this, BuildConfig.Apikey)
         setContentView(R.layout.activity_map_location)
         mMapview = findViewById(R.id.mapView)
         mMapview.onCreate(savedInstanceState)
@@ -130,8 +133,8 @@ class MapLocation : AppCompatActivity(),OnMapReadyCallback,PermissionsListener, 
             .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
             .setMaxWaitTime(DEFAULT_MAX_WAIT_TIME).build()
 
-//        locationEngine.requestLocationUpdates(request, callback, mainLooper)
-//        locationEngine.getLastLocation(callback)
+        locationEngine.requestLocationUpdates(request, callback, mainLooper)
+        locationEngine.getLastLocation(callback)
     }
 
     override fun onRequestPermissionsResult(
@@ -275,36 +278,36 @@ class MapLocation : AppCompatActivity(),OnMapReadyCallback,PermissionsListener, 
 
 
 
-//    class MapLocationCallback internal constructor(activity: MapLocation) :
-//        LocationEngineCallback<LocationEngineResult> {
-//        private val activityWeakReference: WeakReference<MapLocation> = WeakReference(activity)
-//        override fun onSuccess(result: LocationEngineResult) {
-//            val activity = activityWeakReference.get()
-//            if (activity != null) {
-//                val location = result.lastLocation
-//                if (location == null) {
-//                    return
-//                }
-//                Log.i("deditian", "lat : "+result.lastLocation!!.latitude.toString() +"   long :"+ result.lastLocation!!.longitude.toString())
-//                Utility(activity.application).save("lat_long","${result.lastLocation!!.latitude},${result.lastLocation!!.longitude}")
-//                // Pass the new location to the Maps SDK's LocationComponent
-//                if (activity.mapboxMap != null && result.lastLocation != null) {
-//                    activity.mapboxMap.locationComponent
-//                        .forceLocationUpdate(result.lastLocation)
-//                }
-//            }
-//        }
-//        override fun onFailure(@NonNull exception: Exception) {
-//            Log.d("LocationChangeActivity", exception.localizedMessage)
-//            val activity = activityWeakReference.get()
-//            if (activity != null) {
-//                Toast.makeText(
-//                    activity, exception.localizedMessage,
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        }
-//    }
+    class MapLocationCallback internal constructor(activity: MapLocation) :
+        LocationEngineCallback<LocationEngineResult> {
+        private val activityWeakReference: WeakReference<MapLocation> = WeakReference(activity)
+        override fun onSuccess(result: LocationEngineResult) {
+            val activity = activityWeakReference.get()
+            if (activity != null) {
+                val location = result.lastLocation
+                if (location == null) {
+                    return
+                }
+                Log.i("deditian", "lat : "+result.lastLocation!!.latitude.toString() +"   long :"+ result.lastLocation!!.longitude.toString())
+                Utility(activity.application).save("lat_long","${result.lastLocation!!.latitude},${result.lastLocation!!.longitude}")
+                // Pass the new location to the Maps SDK's LocationComponent
+                if (activity.mapboxMap != null && result.lastLocation != null) {
+                    activity.mapboxMap.locationComponent
+                        .forceLocationUpdate(result.lastLocation)
+                }
+            }
+        }
+        override fun onFailure(@NonNull exception: Exception) {
+            Log.d("LocationChangeActivity", exception.localizedMessage)
+            val activity = activityWeakReference.get()
+            if (activity != null) {
+                Toast.makeText(
+                    activity, exception.localizedMessage,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
 
     override fun onStart() {
         super.onStart()
